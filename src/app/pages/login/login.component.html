@@ -1,18 +1,54 @@
 <div class="parent">
-  <div class="login">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login">
     <h2>Login</h2>
+
     <div class="inputBx">
-      <input type="text" placeholder="Username" />
+      <input type="text" placeholder="Username" formControlName="username" />
+      <ng-container
+        *ngIf="
+          loginForm.get('username')?.invalid &&
+          loginForm.get('username')?.touched
+        "
+      >
+        <ng-template
+          [ngTemplateOutlet]="errorMessage"
+          [ngTemplateOutletContext]="{ message: 'Username is required.' }"
+        ></ng-template>
+      </ng-container>
     </div>
+
     <div class="inputBx">
-      <input type="password" placeholder="Password" />
+      <input
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+      />
+      <ng-container 
+        *ngIf="
+          loginForm.get('password')?.invalid &&
+          loginForm.get('password')?.touched
+        "
+      >
+        <ng-template
+          [ngTemplateOutlet]="errorMessage"
+          [ngTemplateOutletContext]="{ message: 'Password is required.' }"
+        ></ng-template>
+      </ng-container>
     </div>
+
     <div class="inputBx">
-      <input id="submit-btn" type="button" value="Sign in" />
+      <button type="submit" [disabled]="!loginForm.valid" id="submit-btn">
+        Sign in
+      </button>
     </div>
+
     <div class="links">
       <a href="#">Forget Password</a>
       <a href="#">Signup</a>
     </div>
-  </div>
+  </form>
+
+  <ng-template #errorMessage let-message="message">
+    <div class="error">{{ message }}</div>
+  </ng-template>
 </div>
