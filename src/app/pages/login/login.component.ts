@@ -4,28 +4,27 @@ import {
   FormBuilder,
   FormGroup,
   FormsModule,
-  NgForm,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { log } from 'console';
+import { RoomService, User } from '../../services/room.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  loginObj: any = {
-    phone: '',
-    password: '',
-  };
-
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private roomService: RoomService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -33,8 +32,56 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      console.log('forms submitted', this.loginForm.value);
+    if (!this.loginForm.valid) {
+      return;
     }
+
+    const loginData = this.loginForm.value;
+
+    this.roomService.login(loginData).subscribe(
+      (res: any) => {
+        if (Array.isArray(res)) {
+          this.handleLoginResponse(res, loginData);
+        } else {
+          alert('Invalid response format');
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  private handleLoginResponse(
+    users: User[],
+    loginData: { username: string; password: string }
+  ) {
+    const matchedUser = this.findUserByUsername(users, loginData.username);
+
+    if (matchedUser) {
+      this.validatePassword(matchedUser, loginData.password);
+    } else {
+      this.setError('username');
+    }
+  }
+
+  private findUserByUsername(
+    users: User[],
+    username: string
+  ): User | undefined {
+    return users.find((user: User) => user.userData.username === username);
+  }
+
+  private validatePassword(matchedUser: User, password: string): void {
+    if (matchedUser.userData.password === password) {
+      localStorage.setItem('hotelUser', JSON.stringify(matchedUser.userData));
+      this.router.navigateByUrl('/dashboard');
+    } else {
+      this.setError('password');
+    }
+  }
+
+  setError(err: string) {
+    this.loginForm.get(err)?.setErrors({ invalidCredentials: true });
   }
 }
