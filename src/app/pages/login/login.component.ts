@@ -18,6 +18,11 @@ import { log } from 'console';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  loginObj: any = {
+    phone: '',
+    password: '',
+  };
+
   loginForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
