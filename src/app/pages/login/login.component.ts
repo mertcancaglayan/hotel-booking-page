@@ -7,8 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RoomService, User } from '../../services/room.service';
 import { Router } from '@angular/router';
+import { RoomService, User } from '../../services/room.service';
 
 @Component({
   selector: 'app-login',
