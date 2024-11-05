@@ -8,7 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RoomService, User } from '../../services/room.service';
+import { RoomService } from '../../services/room.service';
+import { User } from '../../states/room/room.model';
 
 @Component({
   selector: 'app-login',
