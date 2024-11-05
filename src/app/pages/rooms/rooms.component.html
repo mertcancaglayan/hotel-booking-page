@@ -1,1 +1,86 @@
-<p>rooms works!</p>
+<section>
+  <div class="row">
+    <div class="col-12 d-flex justify-start mx-3">
+      <button class="btn btn-success" (click)="addNewRoom()">Add New</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Src Name</th>
+            <th>Room Name</th>
+            <th>Available</th>
+            <th>Capacity</th>
+            <th>Activate</th>
+            <th>Tariff</th>
+            <th>Extension No</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let room of roomsSubject.value; let sr = index">
+            <td>{{ sr + 1 }}</td>
+            <td>
+              <input
+                type="text"
+                [(ngModel)]="room.roomName"
+                class="form-control"
+              />
+            </td>
+            <td>
+              <input
+                type="checkbox"
+                [(ngModel)]="room.isAcAvailable"
+                class="form-check-input"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                [(ngModel)]="room.roomCapacity"
+                class="form-control"
+              />
+            </td>
+            <td>
+              <input
+                type="checkbox"
+                [(ngModel)]="room.isActive"
+                class="form-check-input"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                [(ngModel)]="room.roomTariff"
+                class="form-control"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                [(ngModel)]="room.extensionNo"
+                class="form-control"
+              />
+            </td>
+            <td class="button-row">
+              <button
+                (click)="onUpdate(room.roomId, room)"
+                class="btn btn-primary btn-sm"
+              >
+                Update
+              </button>
+              <button
+                (click)="onDelete(room.roomId)"
+                class="btn btn-danger btn-sm"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
