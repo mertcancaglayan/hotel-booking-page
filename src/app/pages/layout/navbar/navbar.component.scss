@@ -1,0 +1,82 @@
+nav.navbar {
+  max-width: 100vw;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background: rgba(0, 0, 0, 0.651);
+  font-size: 20px;
+  border-bottom: 2px solid orange;
+
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1000px;
+    .navbar-items {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      list-style: none;
+      width: 1000px;
+
+      .nav-item {
+        a {
+          text-decoration: none;
+          color: aliceblue;
+          transition: 0.3s ease-in-out;
+          padding: 10px;
+
+          &:hover {
+            background-color: orange;
+          }
+        }
+      }
+    }
+  }
+}
+
+button.navbar-logo {
+  width: 100px;
+  aspect-ratio: 1;
+  background: transparent;
+  border: none;
+
+  .navbar-logo-icon {
+    width: 100px;
+    aspect-ratio: 1;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.navbar-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  .user-name {
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: orange;
+    border: 0;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+    font-size: 15px;
+
+    &:hover {
+      background-color: rgb(255, 60, 0);
+    }
+  }
+}
