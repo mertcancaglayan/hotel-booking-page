@@ -16,5 +16,5 @@ const initialState: RoomState = {
 export const roomReducer = createReducer(
   initialState,
   on(RoomActions.loadRoomsSuccess, (state, { rooms }) => ({ ...state, rooms })),
-  on(RoomActions.loadRoomsFailure, (state, { error }) => ({ ...state, error })),
+  on(RoomActions.loadRoomsFailure, (state, { error }) => ({ ...state, error }))
 );

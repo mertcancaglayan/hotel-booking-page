@@ -17,8 +17,6 @@ export const addRoom = createAction(
   props<{ room: Room }>()
 );
 
-
-
 export const deleteRoom = createAction(
   '[Rooms] Delete Room',
   props<{ roomId: number }>()
